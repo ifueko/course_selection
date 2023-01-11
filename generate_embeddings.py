@@ -7,10 +7,15 @@ import traceback
 from openai.embeddings_utils import get_embedding
 from tqdm import tqdm
 
+"""
+To obtain a key, go to `https://beta.openai.com/account/api-keys` and create an API key after making an OpenAI account.
+"""
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
 CHUNK_SIZE=2000
 
 df = pd.read_csv("mit_course_catalog_raw.csv")
+
 df['embedding_title'] = [[] for _ in range(len(df))]
 df['embedding_desc'] = [[] for _ in range(len(df))]
 df['embedding_combined'] = [[] for _ in range(len(df))]
@@ -36,5 +41,4 @@ for i in range(int(np.ceil(len(df)/CHUNK_SIZE))):
         pbar.update()
     
 df.to_csv("mit_course_catalog_with_embeddings.csv", index=False)
-print("Complete.")
-    
+print("\n\nComplete!")

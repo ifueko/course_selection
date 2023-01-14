@@ -24,6 +24,17 @@ def filter_courses(df, grad=False):
         df = df[df['grad'] == True]
     print(df.shape)
     return df
+
+def filter_grad_courses_over_12_units(df):
+    print(df.shape)
+    # Exclude courses whose units sum to less than 12
+    df['units'] = [units_to_value(d.split()[0].split('-')) for d in list(df.hours)] 
+    df = df[df['units'] >= 12]
+    # Exclude courses that are not grad courses
+    df['grad'] = [d.strip('[\'').split(' ')[0] == 'G' for d in list(df.terms)]
+    df = df[df['grad'] == True]
+    print(df.shape)
+    return df
     
 def filter_search(df, course_numbers):
     df['keep'] = [x in course_numbers for x in list(df.course_number)]

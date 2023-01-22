@@ -14,7 +14,7 @@ keys = set()
 courses = []
 pbar = tqdm.tqdm()
 for subject_item in subjects:
-    url = base_url + subject_item.get_attribute_list("href")[0]
+    url = base_url + subject_item.get_attribute_list("href")[0] # href is short for hypertext reference, used to specify the destination of the link. Create hyperlinks that link to other web pages or to specific locations within the same page
     subject_soup = BeautifulSoup(requests.get(url).text, features="html.parser")
     subj_courses = subject_soup.find_all("div", class_="courseblock")
     for course in subj_courses:

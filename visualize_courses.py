@@ -84,9 +84,6 @@ elif mode == "search":
     if filt:
         df = filter_courses(df, grad)
     print("Searching for classes...")
-    df_query = pd.read_csv('queries_with_embeddings.csv')
-    df_query['embedding'] = df_query.embedding_combined.apply(eval)
-    df['embedding'] = df.embedding_combined.apply(eval)
     course_numbers = list(search_courses(df, df_query.iloc[term]).course_number)
     print(course_numbers)
     tsne = TSNE(n_components=2, perplexity=15, random_state=42, init='random', learning_rate=200)
